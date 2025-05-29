@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cyber-black text-white font-body;
+  }
+}
+
+@layer components {
+  .scanline {
+    @apply pointer-events-none fixed inset-0 opacity-10 z-50 overflow-hidden;
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 255, 255, 0) 0%,
+      rgba(10, 255, 255, 0.2) 10%,
+      rgba(10, 255, 255, 0.4) 50%,
+      rgba(10, 255, 255, 0.2) 90%,
+      rgba(10, 255, 255, 0) 100%
+    );
+    height: 10px;
+    animation: scanline 8s linear infinite;
+  }
+
+  .cyberpunk-border {
+    @apply relative border border-cyber-blue p-px overflow-hidden;
+  }
+
+  .cyberpunk-border::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-green;
+    animation: border-glow 3s linear infinite;
+  }
+
+  .cyberpunk-border::after {
+    content: '';
+    @apply absolute inset-px bg-cyber-black;
+  }
+
+  .cyberpunk-border > * {
+    @apply relative z-10;
+  }
+
+  .cyberpunk-button {
+    @apply bg-cyber-dark border border-cyber-blue text-cyber-blue font-cyber py-2 px-4 relative 
+           overflow-hidden transition-all duration-300 hover:bg-cyber-blue hover:text-cyber-black
+           focus:outline-none focus:ring-2 focus:ring-cyber-purple;
+  }
+
+  .cyberpunk-button::before {
+    content: '';
+    @apply absolute inset-0 bg-cyber-blue opacity-0 transition-opacity duration-300;
+  }
+
+  .cyberpunk-button:hover::before {
+    @apply opacity-20;
+  }
+
+  .cyber-input {
+    @apply bg-cyber-dark border border-cyber-blue text-white font-cyber py-2 px-4 w-full
+           focus:outline-none focus:ring-2 focus:ring-cyber-purple;
+  }
+
+  .algo-selector {
+    @apply p-3 border border-transparent transition-all duration-300 cursor-pointer;
+  }
+  
+  .algo-selector.active {
+    @apply border-cyber-purple bg-cyber-dark;
+  }
+  
+  .algo-selector:hover:not(.active) {
+    @apply border-cyber-blue bg-opacity-20 bg-cyber-dark;
+  }
+
+  @keyframes border-glow {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+}
