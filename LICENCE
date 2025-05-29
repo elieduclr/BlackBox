@@ -1,6 +1,5 @@
-BlackBox License (BBL v1.0)
+BlackBox License (BBL v1.1)
 Last updated: May 29, 2025
-
 Copyright © 2025 Élie du CAILAR
 
 1. Preamble
@@ -9,78 +8,102 @@ This License (the "License") governs the use, reproduction, modification, and di
 By accessing, using, modifying, or distributing any part of the Software, you agree to be bound by the terms of this License.
 
 2. Definitions
-Non-Commercial Use: any use that does not directly or indirectly aim for commercial advantage or monetary compensation
-Commercial Use: any use within the scope of economic activity, including but not limited to sale, paid services, integration into commercial products
-Derivative Work: any modification, adaptation, translation, or other transformation of the Software
+"Non-Commercial Use": Any use that does not directly or indirectly aim for commercial advantage or monetary compensation, including personal use, educational use, research, and use by non-profit organizations for their primary mission.
+"Commercial Use": Any use within the scope of economic activity, including but not limited to: sale, licensing for fee, integration into commercial products or services, use in revenue-generating activities, or use by for-profit entities in their business operations.
+"Derivative Work": Any modification, adaptation, translation, enhancement, or other transformation of the Software that incorporates substantial portions of the original code or functionality.
+"Distribution": Making the Software or Derivative Works available to third parties through any means, including but not limited to download, physical media, or network transmission.
 
 3. Rights Granted
 3.1 Non-Commercial Use
-You are granted a non-exclusive, worldwide, royalty-free license to:
+Subject to the terms of this License, you are granted a non-exclusive, worldwide, royalty-free license to:
 
-Use the Software for non-commercial purposes
+Use the Software for Non-Commercial purposes
 Reproduce and distribute the Software
 Create and distribute Derivative Works
-Mandatory conditions:
+Mandatory conditions for all Non-Commercial use:
+Retain all copyright notices, license notices, and disclaimers in their entirety
+Include prominent attribution stating "Based on BlackBox by Élie du CAILAR" in any user interface, documentation, or distribution materials
+Provide a complete copy of this License with any Distribution
+Clearly indicate if modifications have been made to the original Software
 
-Retain all copyright notices in their entirety
-Visibly mention "Based on BlackBox by Élie du CAILAR"
-Provide a copy of this License with any distribution
+3.2 Derivative Works Requirements
+Any Derivative Work distributed publicly must:
+Be published under a license compatible with the original intent of this License (such as MIT, Apache 2.0, GPL-3.0, or equivalent open-source licenses)
+Clearly indicate its derivative nature from the original Software in all documentation and distribution materials
+Comply with all attribution requirements specified in Section 3.1
+Not remove or obscure the original copyright notice
 
-3.2 Derivative Works
-Derivative Works distributed publicly must:
-
-Be published under a compatible license (MIT, Apache 2.0, GPL-3.0, or equivalent)
-Clearly indicate their derivative nature from the original Software
-Comply with the attribution conditions of Section 3.1
-
-3.3 Modification Notification
-Any person publicly distributing a Derivative Work must:
-
-Document modifications in a clear and readable manner
-Notify the original author of modifications within 30 days of first public distribution
-Provide access to modifications (source code, documentation) if requested by the author
-Notification methods:
-
-Via GitHub issue on the official repository, or
-By email to the official contact address
-Including: nature of modifications, link to Derivative Work, modifier's contact information
+3.3 Modification Disclosure (Optional Good Practice)
+While not mandatory, we encourage creators of Derivative Works to:
+Document significant modifications in a clear and readable manner
+Consider informing the original author of substantial public derivatives through GitHub or email
+Provide information about: nature of modifications, link to Derivative Work, and contact information
+Note: This disclosure is encouraged but not required for license compliance.
 
 4. Restrictions
-4.1 Commercial Use Prohibited
-Commercial use of the Software, in original or derivative form, is strictly prohibited without prior written authorization from the copyright holder.
+4.1 Commercial Use Prohibition
+Commercial Use of the Software, whether in original or derivative form, is strictly prohibited without prior written authorization from the copyright holder.
 
-4.2 Preservation of Notices
-Removal or modification of copyright, license, or attribution notices present in the Software is prohibited.
+4.2 Integrity of Legal Notices
+You may not remove, alter, or obscure any copyright notices, license texts, or attribution requirements present in the Software.
 
-5. Commercial License
-For any commercial use, please contact the author via the official GitHub repository or designated contact address. A separate commercial license may be negotiated.
+4.3 No Endorsement
+You may not use the name of the copyright holder or contributors to endorse or promote products derived from this Software without specific prior written permission.
 
-6. Warranties and Liability
-6.1 No Warranty
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-
-6.2 Limitation of Liability
-IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-7. Termination
-7.1 Automatic Termination
-Any breach of the terms of this License automatically terminates the rights granted herein.
-
-7.2 Effect of Termination
-Upon termination, you must immediately cease all use of the Software and destroy all copies in your possession.
-
-8. General Provisions
-8.1 Governing Law
-This License is governed by French law. The Judicial Court has exclusive jurisdiction over any disputes relating to this License.
-
-8.2 Severability
-If any provision of this License is held to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
-
-8.3 Modification
-This License may only be modified by written agreement signed by the copyright holder.
-
-9. Contact
-For any questions regarding this License or commercial license requests:
+5. Commercial Licensing
+For any Commercial Use, you must obtain a separate commercial license. Please contact the author through:
 
 GitHub Repository: https://github.com/elieduclr/BlackBox
-Contact: elieducailar@gmail.com
+Email: elieducailar@gmail.com
+Commercial licensing terms will be negotiated on a case-by-case basis.
+
+6. Intellectual Property and Patents
+6.1 Copyright
+The Software is protected by copyright. This License does not grant you rights to use any trademarks, service marks, or logos associated with the Software.
+
+6.2 Patent Grant
+Subject to the terms of this License, the copyright holder grants you a perpetual, worldwide, non-exclusive, royalty-free patent license to use the Software for Non-Commercial purposes only, under any patents owned or controlled by the copyright holder that are necessarily infringed by the Software.
+
+7. Warranties and Liability
+7.1 Disclaimer of Warranties
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THE COPYRIGHT HOLDER MAKES NO WARRANTIES REGARDING THE ACCURACY, RELIABILITY, OR PERFORMANCE OF THE SOFTWARE.
+
+7.2 Limitation of Liability
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+8. Compliance and Termination
+8.1 Automatic Termination
+Your rights under this License terminate automatically upon any breach of its terms. Continued use after breach constitutes copyright infringement.
+
+8.2 Effect of Termination
+Upon termination, you must immediately:
+Cease all use of the Software
+Destroy or delete all copies in your possession or control
+Discontinue distribution of any Derivative Works
+
+8.3 Survival
+Sections 6 (Warranties and Liability), 7 (Intellectual Property), and 9 (General Provisions) survive termination of this License.
+
+9. General Provisions
+9.1 Governing Law and Jurisdiction
+This License shall be governed by and construed in accordance with French law, without regard to its conflict of law principles. Any legal action or proceeding arising under this License shall be brought exclusively in the competent courts of France.
+
+9.2 Severability
+If any provision of this License is held to be invalid, illegal, or unenforceable, the validity, legality, and enforceability of the remaining provisions shall remain in full force and effect.
+
+9.3 Entire Agreement
+This License constitutes the entire agreement between the parties concerning the Software and supersedes all prior or contemporaneous agreements relating to such subject matter.
+
+9.4 Amendment
+This License may only be modified by a written agreement signed by the copyright holder. No other modifications or waivers are valid unless explicitly agreed to in writing.
+
+9.5 Language
+This License is written in English. In case of conflicts between translations, the English version prevails.
+
+10. Contact Information
+For questions about this License, commercial licensing requests, or other inquiries:
+
+GitHub Repository: https://github.com/elieduclr/BlackBox
+Email: elieducailar@gmail.com
+License Version: BBL v1.1
+This license aims to promote open collaboration while protecting the author's commercial interests. Thank you for respecting these terms.
