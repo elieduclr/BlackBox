@@ -20,19 +20,6 @@ const VisualObfuscation: React.FC<VisualObfuscationProps> = ({ text, algorithm }
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     
-    // Get a seed from the text
-    const getSeed = (text: string) => {
-      return Array.from(text).reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    };
-    
-    const seed = getSeed(text);
-    
-    // Simple random function with seed
-    const seededRandom = (seed: number) => {
-      let value = Math.sin(seed) * 10000;
-      return value - Math.floor(value);
-    };
-    
     // Clear canvas
     ctx.fillStyle = '#121212';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -40,305 +27,251 @@ const VisualObfuscation: React.FC<VisualObfuscationProps> = ({ text, algorithm }
     // Choose generation style based on algorithm
     switch (algorithm) {
       case 'aes':
-        generateGridPattern(ctx, canvas, text, seed);
+        generateCipherMatrix(ctx, canvas, text);
         break;
       case 'chacha':
-        generateFlowField(ctx, canvas, text, seed);
+        generateStreamPattern(ctx, canvas, text);
         break;
       case 'kyber':
-        generateLatticeArt(ctx, canvas, text, seed);
+        generateQuantumPattern(ctx, canvas, text);
         break;
       case 'custom':
-        generateFractalPattern(ctx, canvas, text, seed);
-        break;
-      default:
+        generateHybridPattern(ctx, canvas, text);
         break;
     }
     
-    // Add noise overlay for all patterns
-    addNoiseOverlay(ctx, canvas, 0.05);
+    // Add noise overlay
+    addNoiseOverlay(ctx, canvas);
     
   }, [text, algorithm]);
   
-  // AES: Geometric grid pattern
-  const generateGridPattern = (
+  // AES: Matrix-like pattern with data blocks
+  const generateCipherMatrix = (
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
-    text: string,
-    seed: number
+    text: string
   ) => {
-    const cellSize = 20;
-    const cols = Math.ceil(canvas.width / cellSize);
-    const rows = Math.ceil(canvas.height / cellSize);
+    const charSize = 14;
+    const cols = Math.floor(canvas.width / charSize);
+    const rows = Math.floor(canvas.height / charSize);
     
-    // Generate pattern colors from text
-    const getColor = (i: number, j: number) => {
-      const index = (i * cols + j) % text.length;
-      const charCode = text.charCodeAt(index);
-      return `rgba(10, 255, 255, ${(charCode % 100) / 100})`;
-    };
+    ctx.font = '12px "Share Tech Mono"';
     
+    // Create data matrix
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
-        const x = j * cellSize;
-        const y = i * cellSize;
+        const index = (i * cols + j) % text.length;
+        const char = text.charAt(index);
+        const charCode = text.charCodeAt(index);
         
-        const patternType = Math.floor(
-          (Math.sin(i * j + seed) + 1) * 2
-        ) % 4;
+        // Calculate color based on character value
+        const hue = (charCode * 2) % 180; // Cyan spectrum
+        const opacity = 0.3 + (charCode % 128) / 255;
         
-        ctx.fillStyle = getColor(i, j);
+        ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${opacity})`;
+        ctx.fillText(char, j * charSize, i * charSize + 12);
         
-        switch (patternType) {
-          case 0: // Square
-            ctx.fillRect(x + 2, y + 2, cellSize - 4, cellSize - 4);
-            break;
-          case 1: // Circle
-            ctx.beginPath();
-            ctx.arc(x + cellSize / 2, y + cellSize / 2, cellSize / 2 - 2, 0, Math.PI * 2);
-            ctx.fill();
-            break;
-          case 2: // Triangle
-            ctx.beginPath();
-            ctx.moveTo(x + cellSize / 2, y + 2);
-            ctx.lineTo(x + 2, y + cellSize - 2);
-            ctx.lineTo(x + cellSize - 2, y + cellSize - 2);
-            ctx.closePath();
-            ctx.fill();
-            break;
-          case 3: // Cross
-            ctx.beginPath();
-            ctx.moveTo(x + 2, y + cellSize / 2);
-            ctx.lineTo(x + cellSize - 2, y + cellSize / 2);
-            ctx.moveTo(x + cellSize / 2, y + 2);
-            ctx.lineTo(x + cellSize / 2, y + cellSize - 2);
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = getColor(i, j);
-            ctx.stroke();
-            break;
+        // Add block patterns
+        if ((i + j) % 4 === 0) {
+          ctx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.3)`;
+          ctx.strokeRect(j * charSize, i * charSize, charSize * 2, charSize * 2);
         }
+      }
+    }
+    
+    // Add flowing data streams
+    const streams = Math.floor(canvas.width / 40);
+    for (let i = 0; i < streams; i++) {
+      const x = i * 40 + Math.random() * 20;
+      const speed = 1 + Math.random();
+      const length = 50 + Math.random() * 100;
+      
+      ctx.fillStyle = 'rgba(10, 255, 255, 0.1)';
+      ctx.fillRect(x, (Date.now() / 1000 * speed * 50) % canvas.height, 2, length);
+    }
+  };
+  
+  // ChaCha: Dynamic stream cipher pattern
+  const generateStreamPattern = (
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    text: string
+  ) => {
+    const time = Date.now() / 1000;
+    
+    // Create flowing patterns
+    for (let i = 0; i < text.length; i++) {
+      const charCode = text.charCodeAt(i);
+      const x = (i / text.length) * canvas.width;
+      const amplitude = canvas.height / 4;
+      const frequency = 0.02 + (charCode % 10) * 0.001;
+      const phase = time + i * 0.1;
+      
+      // Draw main wave
+      ctx.beginPath();
+      ctx.strokeStyle = `hsla(${(charCode * 2) % 120 + 90}, 100%, 50%, 0.5)`;
+      ctx.lineWidth = 2;
+      
+      for (let j = 0; j < canvas.height; j += 2) {
+        const waveX = x + Math.sin(j * frequency + phase) * amplitude;
+        ctx.lineTo(waveX, j);
+      }
+      ctx.stroke();
+      
+      // Add particle effects
+      const particles = 5;
+      for (let p = 0; p < particles; p++) {
+        const py = (time * 100 + p * canvas.height / particles) % canvas.height;
+        const px = x + Math.sin(py * frequency + phase) * amplitude;
+        
+        ctx.fillStyle = `hsla(${(charCode * 2) % 120 + 90}, 100%, 50%, 0.8)`;
+        ctx.beginPath();
+        ctx.arc(px, py, 3, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
   };
   
-  // ChaCha: Flow field
-  const generateFlowField = (
+  // Kyber: Quantum-inspired lattice pattern
+  const generateQuantumPattern = (
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
-    text: string,
-    seed: number
+    text: string
   ) => {
-    const particleCount = Math.min(100, text.length * 2);
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; color: string }[] = [];
-    
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      const charIndex = i % text.length;
-      const charCode = text.charCodeAt(charIndex);
-      
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: 0,
-        vy: 0,
-        size: 2 + (charCode % 5),
-        color: `hsl(${(charCode * 3) % 360}, 100%, 60%)`
-      });
-    }
-    
-    // Flow field parameters
-    const resolution = 20;
-    const cols = Math.ceil(canvas.width / resolution);
-    const rows = Math.ceil(canvas.height / resolution);
-    
-    // Update and draw particles
-    for (let step = 0; step < 100; step++) {
-      particles.forEach(particle => {
-        // Get flow field angle at particle position
-        const col = Math.floor(particle.x / resolution);
-        const row = Math.floor(particle.y / resolution);
-        const angle = Math.sin(col * 0.1 + seed) * Math.cos(row * 0.1 + seed) * Math.PI * 2;
-        
-        // Update velocity
-        particle.vx = Math.cos(angle) * 0.5;
-        particle.vy = Math.sin(angle) * 0.5;
-        
-        // Update position
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        
-        // Keep particles on canvas
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
-        
-        // Draw particle
-        ctx.fillStyle = particle.color;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    }
-  };
-  
-  // Kyber: Lattice-inspired art
-  const generateLatticeArt = (
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    text: string,
-    seed: number
-  ) => {
-    const gridSize = 12;
-    const cellWidth = canvas.width / gridSize;
-    const cellHeight = canvas.height / gridSize;
-    
-    // Draw base grid
-    ctx.strokeStyle = 'rgba(186, 1, 255, 0.2)';
-    ctx.lineWidth = 1;
-    
-    for (let i = 0; i <= gridSize; i++) {
-      // Horizontal
-      ctx.beginPath();
-      ctx.moveTo(0, i * cellHeight);
-      ctx.lineTo(canvas.width, i * cellHeight);
-      ctx.stroke();
-      
-      // Vertical
-      ctx.beginPath();
-      ctx.moveTo(i * cellWidth, 0);
-      ctx.lineTo(i * cellWidth, canvas.height);
-      ctx.stroke();
-    }
-    
-    // Generate points based on text
+    const time = Date.now() / 1000;
     const points = [];
+    
+    // Generate quantum state points
     for (let i = 0; i < text.length; i++) {
       const charCode = text.charCodeAt(i);
-      const row = Math.floor((charCode % 256) / 256 * gridSize);
-      const col = Math.floor((charCode % 127) / 127 * gridSize);
-      
       points.push({
-        x: col * cellWidth + cellWidth / 2,
-        y: row * cellHeight + cellHeight / 2,
+        x: (charCode * 17) % canvas.width,
+        y: (charCode * 23) % canvas.height,
         value: charCode
       });
     }
     
-    // Draw connections between points
-    ctx.lineWidth = 2;
-    
-    for (let i = 0; i < points.length - 1; i++) {
-      const point = points[i];
-      const nextPoint = points[i + 1];
+    // Draw quantum state connections
+    ctx.lineWidth = 1;
+    for (let i = 0; i < points.length; i++) {
+      const p1 = points[i];
       
-      // Color based on character values
-      const hue = ((point.value + nextPoint.value) / 2) % 360;
-      ctx.strokeStyle = `hsla(${hue}, 100%, 60%, 0.6)`;
-      
-      ctx.beginPath();
-      ctx.moveTo(point.x, point.y);
-      ctx.lineTo(nextPoint.x, nextPoint.y);
-      ctx.stroke();
-      
-      // Draw points
-      ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
-      ctx.beginPath();
-      ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    
-    // Draw last point
-    if (points.length > 0) {
-      const lastPoint = points[points.length - 1];
-      ctx.fillStyle = `hsl(${lastPoint.value % 360}, 100%, 60%)`;
-      ctx.beginPath();
-      ctx.arc(lastPoint.x, lastPoint.y, 4, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  };
-  
-  // Custom: Fractal-inspired pattern
-  const generateFractalPattern = (
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    text: string,
-    seed: number
-  ) => {
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const maxRadius = Math.min(centerX, centerY) * 0.9;
-    
-    // Create a function to generate a value from text at an index
-    const getValue = (index: number) => {
-      return text.charCodeAt(index % text.length) / 255;
-    };
-    
-    // Draw concentric shapes with rotational symmetry
-    const symmetry = 5 + (seed % 7);
-    const layers = Math.min(text.length, 10);
-    
-    for (let layer = 0; layer < layers; layer++) {
-      const radius = maxRadius * (1 - layer / layers);
-      const layerRotation = layer * Math.PI / layers + seed * 0.01;
-      
-      // Get colors from text
-      const hue = (text.charCodeAt(layer % text.length) * 3) % 360;
-      const saturation = 70 + layer * 3;
-      const lightness = 40 + layer * 3;
-      
-      ctx.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.4)`;
-      ctx.strokeStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`;
-      ctx.lineWidth = 1;
-      
-      // Draw a shape with n-fold symmetry
-      ctx.beginPath();
-      
-      for (let i = 0; i < symmetry; i++) {
-        const angle = (i / symmetry) * Math.PI * 2 + layerRotation;
-        const textIndex = (layer * symmetry + i) % text.length;
-        const value = getValue(textIndex);
+      // Connect to nearby points
+      for (let j = i + 1; j < points.length; j++) {
+        const p2 = points[j];
+        const dx = p2.x - p1.x;
+        const dy = p2.y - p1.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
         
-        const innerRadius = radius * (0.3 + value * 0.4);
-        const outerRadius = radius;
-        
-        const innerX = centerX + Math.cos(angle) * innerRadius;
-        const innerY = centerY + Math.sin(angle) * innerRadius;
-        
-        const nextAngle = ((i + 1) / symmetry) * Math.PI * 2 + layerRotation;
-        const nextTextIndex = (layer * symmetry + i + 1) % text.length;
-        const nextValue = getValue(nextTextIndex);
-        
-        const outerX = centerX + Math.cos(angle + Math.PI / symmetry) * outerRadius;
-        const outerY = centerY + Math.sin(angle + Math.PI / symmetry) * outerRadius;
-        
-        if (i === 0) {
-          ctx.moveTo(innerX, innerY);
-        } else {
-          ctx.lineTo(innerX, innerY);
+        if (distance < 150) {
+          const alpha = (1 - distance / 150) * 0.5;
+          const hue = ((p1.value + p2.value) / 2) % 60 + 270; // Purple spectrum
+          
+          ctx.strokeStyle = `hsla(${hue}, 100%, 50%, ${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
         }
-        
-        ctx.lineTo(outerX, outerY);
       }
       
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
+      // Add quantum superposition effect
+      const superpositions = 3;
+      for (let s = 0; s < superpositions; s++) {
+        const angle = time * 2 + (s * Math.PI * 2) / superpositions;
+        const radius = 10 + Math.sin(time * 3 + i) * 5;
+        
+        const sx = p1.x + Math.cos(angle) * radius;
+        const sy = p1.y + Math.sin(angle) * radius;
+        
+        ctx.fillStyle = `hsla(${p1.value % 60 + 270}, 100%, 50%, 0.3)`;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 3, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
   };
   
-  // Add noise overlay to any pattern
-  const addNoiseOverlay = (
+  // Custom: Hybrid encryption visualization
+  const generateHybridPattern = (
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
-    intensity: number
+    text: string
   ) => {
+    const time = Date.now() / 1000;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    
+    // Generate multiple encryption layers
+    const layers = 5;
+    for (let layer = 0; layer < layers; layer++) {
+      const radius = Math.min(canvas.width, canvas.height) * (0.2 + layer * 0.1);
+      const points = 8 + layer * 4;
+      const rotation = time * (layer % 2 ? 0.2 : -0.2);
+      
+      ctx.beginPath();
+      ctx.strokeStyle = `hsla(${(layer * 60 + time * 30) % 360}, 80%, 50%, 0.3)`;
+      
+      for (let i = 0; i < points; i++) {
+        const angle = rotation + (i * Math.PI * 2) / points;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+        
+        // Add data points
+        if (i < text.length) {
+          const charCode = text.charCodeAt(i);
+          const pointRadius = 3 + (charCode % 5);
+          
+          ctx.fillStyle = `hsla(${charCode % 360}, 80%, 50%, 0.8)`;
+          ctx.beginPath();
+          ctx.arc(x, y, pointRadius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.closePath();
+      ctx.stroke();
+      
+      // Add connecting beams
+      if (layer < layers - 1) {
+        const beams = 3;
+        for (let b = 0; b < beams; b++) {
+          const angle = rotation * 2 + (b * Math.PI * 2) / beams;
+          const innerX = centerX + Math.cos(angle) * radius;
+          const innerY = centerY + Math.sin(angle) * radius;
+          const outerX = centerX + Math.cos(angle) * (radius + 50);
+          const outerY = centerY + Math.sin(angle) * (radius + 50);
+          
+          const gradient = ctx.createLinearGradient(innerX, innerY, outerX, outerY);
+          gradient.addColorStop(0, `hsla(${(layer * 60) % 360}, 80%, 50%, 0.8)`);
+          gradient.addColorStop(1, `hsla(${((layer + 1) * 60) % 360}, 80%, 50%, 0.8)`);
+          
+          ctx.strokeStyle = gradient;
+          ctx.beginPath();
+          ctx.moveTo(innerX, innerY);
+          ctx.lineTo(outerX, outerY);
+          ctx.stroke();
+        }
+      }
+    }
+  };
+  
+  // Add noise and scanline effects
+  const addNoiseOverlay = (
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement
+  ) => {
+    // Add subtle noise
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     
     for (let i = 0; i < data.length; i += 4) {
-      const noise = (Math.random() - 0.5) * intensity * 255;
-      
+      const noise = (Math.random() - 0.5) * 15;
       data[i] = Math.min(255, Math.max(0, data[i] + noise));
       data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise));
       data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise));
@@ -351,6 +284,12 @@ const VisualObfuscation: React.FC<VisualObfuscationProps> = ({ text, algorithm }
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, y, canvas.width, 1);
     }
+    
+    // Add CRT-like glow
+    const time = Date.now() / 1000;
+    const glow = Math.sin(time) * 0.1 + 0.9;
+    ctx.fillStyle = `rgba(255, 255, 255, ${0.02 * glow})`;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
   };
   
   return (
