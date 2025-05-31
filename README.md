@@ -167,7 +167,7 @@ L'algorithme custom de BlackBox.js est une construction hybride à plusieurs cou
 
 ## ⚠️ Limitations actuelles
 
-- Le mode stealth est actuellement seulement visuel, le cryptage stealth est en projet.  
+- Le mode stealth est actuellement en développement.  
 - L'algorithme Kyber est pour l'instant simulé, implémentation réelle à venir.
 
 ---
