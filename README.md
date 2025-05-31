@@ -10,6 +10,8 @@
 **BlackBox** est une application web de chiffrement multi-algorithmes pensée pour la sécurité et la discrétion.  
 Tu peux chiffrer tes données avec des standards éprouvés, mais aussi avec un algorithme **custom** exclusif, ou bientôt en post-quantum (Kyber en développement).
 
+*[English version here](./EN-README.md)*
+
 ---
 
 ## 🧰 Installation

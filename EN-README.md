@@ -10,6 +10,8 @@
 **BlackBox** is a multi-algorithm encryption web application designed for security and discretion.  
 You can encrypt your data with proven standards, but also with an exclusive **custom** algorithm, or soon with post-quantum (Kyber in development).
 
+*[Version française ici](./README.md)*
+
 ---
 
 ## 🧰 Installation
