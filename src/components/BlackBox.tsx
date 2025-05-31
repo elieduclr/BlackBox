@@ -112,7 +112,7 @@ const BlackBox: React.FC = () => {
                     Symmetric key algorithm using 128/192/256-bit keys.
                     Standard for securing sensitive data worldwide.
                   </p>
-                  <p className="text-cyber-green">STATUS: ACTIVE // QUANTUM RESISTANCE: LOW</p>
+                  <p className="text-cyber-red">STATUS: ACTIVE // QUANTUM RESISTANCE: LOW</p>
                 </div>
               )}
               
@@ -123,7 +123,7 @@ const BlackBox: React.FC = () => {
                     Stream cipher designed for high-speed encryption on any CPU.
                     Used in TLS for HTTPS connections.
                   </p>
-                  <p className="text-cyber-green">STATUS: ACTIVE // QUANTUM RESISTANCE: LOW</p>
+                  <p className="text-cyber-red">STATUS: ACTIVE // QUANTUM RESISTANCE: LOW</p>
                 </div>
               )}
               
@@ -145,7 +145,7 @@ const BlackBox: React.FC = () => {
                     Proprietary hybrid encryption using multiple ciphers in sequence.
                     Implements key stretching and multi-layered encryption.
                   </p>
-                  <p className="text-cyber-red">STATUS: PROTOTYPE // QUANTUM RESISTANCE: MEDIUM</p>
+                  <p className="text-cyber-yellow">STATUS: PROTOTYPE // QUANTUM RESISTANCE: MEDIUM</p>
                 </div>
               )}
             </div>

@@ -16,7 +16,7 @@ const Header: React.FC = () => {
             <h1 className="text-2xl md:text-3xl font-cyber text-cyber-blue">
               BlackBox
             </h1>
-            <p className="text-xs text-cyber-yellow font-cyber">v1.1.0 // CRYPTOGRAPHIC ENGINE</p>
+            <p className="text-xs text-cyber-yellow font-cyber">v1.2.0 // CRYPTOGRAPHIC ENGINE</p>
           </div>
         </div>
         

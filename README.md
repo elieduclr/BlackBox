@@ -10,6 +10,8 @@
 **BlackBox** est une application web de chiffrement multi-algorithmes pensée pour la sécurité et la discrétion.  
 Tu peux chiffrer tes données avec des standards éprouvés, mais aussi avec un algorithme **custom** exclusif, ou bientôt en post-quantum (Kyber en développement).
 
+*[English version here](./EN-README.md)*
+
 ---
 
 ## 🧰 Installation
@@ -167,7 +169,7 @@ L'algorithme custom de BlackBox.js est une construction hybride à plusieurs cou
 
 ## ⚠️ Limitations actuelles
 
-- Le mode stealth est actuellement seulement visuel, le cryptage stealth est en projet.  
+- Le mode stealth est actuellement en développement.  
 - L'algorithme Kyber est pour l'instant simulé, implémentation réelle à venir.
 
 ---
